@@ -1,5 +1,5 @@
-import React, {useState, useCallback} from 'react';
-import Tracklist from './Tracklist';
+import React, { useState, useCallback } from "react";
+import Tracklist from "./Tracklist";
 
 export default function Playlist(props) {
   const handleNameChange = useCallback(
@@ -8,23 +8,24 @@ export default function Playlist(props) {
     },
     [props.handleNameChange]
   );
-  
+
   return (
     <div className="playlist-container">
-      <input 
+      <input
         className="playlist-name"
         onChange={handleNameChange}
         value={props.playlistName}
       />
-      <Tracklist 
+      <Tracklist
         tracks={props.playlistTracks}
-        handleSelectSongs={props.handleSelectSongs}
+        handleSelectTracks={props.handleSelectTracks}
         onRemoval={true}
       />
       <div className="save-button-container">
-        <button className="save-button" onClick={props.onCreate}>SAVE TO SPOTIFY</button>
+        <button className="save-button" onClick={props.onCreate}>
+          SAVE TO SPOTIFY
+        </button>
       </div>
-        
     </div>
-  )
+  );
 }

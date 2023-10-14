@@ -25,6 +25,21 @@ body {
   color: #E46A9D;
 }
 
+.login-button {
+  position: absolute;
+  top: 25px;
+  right: 1.5rem;
+  font-size: 1rem;
+  width: 6rem;
+  padding: 0.5rem;
+  border-radius: 30px;
+  font-family: 'Work Sans';
+  cursor: pointer;
+  background-color: #883155;
+  color: white;
+  border: none;
+}
+
 .search-bar {
   margin: auto;
   width: 50%;
