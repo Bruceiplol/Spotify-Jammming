@@ -7,18 +7,19 @@ export default function SearchBar(props) {
     setSearchTerm(e.target.value);
   }, []);
 
-  const searchTitle = useCallback(() => {
-    props.onSearch(searchTerm);
-  }, [props.onSearch, searchTerm]);
+  function searchTitle() {
+    props.onSearch(searchTerm, props.page);
+  }
 
-  const handleKeyPress = useCallback(
-    (e) => {
-      if (e.key === "Enter") {
-        searchTitle();
-      }
-    },
-    [searchTitle]
-  );
+  function handleKeyPress(e) {
+    if (e.key === "Enter") {
+      searchTitle();
+    }
+  }
+
+  function clear() {
+    setSearchTerm("");
+  }
 
   return (
     <div className="search-bar">
@@ -30,6 +31,9 @@ export default function SearchBar(props) {
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       />
+      <button className="clear-button" onClick={clear}>
+        clear
+      </button>
       <button className="search-button" onClick={searchTitle}>
         SEARCH
       </button>

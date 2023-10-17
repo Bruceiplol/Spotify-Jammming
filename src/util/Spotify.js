@@ -1,6 +1,7 @@
 const client_id = "deb4892109124216b877ceb58f234eb8"; // Replace with your client ID
 const redirect_uri = "http://localhost:3000/";
-const scope = "playlist-modify-public";
+const scope =
+  "playlist-modify-public user-modify-playback-state user-read-playback-state";
 
 let accessUrl = `https://accounts.spotify.com/authorize`;
 accessUrl += "?response_type=token";
@@ -9,7 +10,7 @@ accessUrl += "&scope=" + encodeURIComponent(scope);
 accessUrl += "&redirect_uri=" + encodeURIComponent(redirect_uri);
 
 let token;
-export const getToken = () => {
+export function getToken() {
   if (token) {
     return token;
   } else if (window.location.hash.length > 1) {
@@ -29,16 +30,21 @@ export const getToken = () => {
   } else if (!token) {
     window.location = accessUrl;
   }
-};
+}
 
-export function getSongs(term) {
+export function getSongs(term, page) {
   const token = getToken();
 
-  return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  return fetch(
+    `https://api.spotify.com/v1/search?type=track&q=${term}&offset=${
+      (page - 1) * 20
+    }`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
     .then((response) => {
       return response.json();
     })
@@ -53,6 +59,7 @@ export function getSongs(term) {
         artist: track.artists[0].name,
         album: track.album.name,
         uri: track.uri,
+        isPlay: false,
       }));
     });
 }
@@ -87,5 +94,65 @@ export function createPlaylist(playlistName, trackUri) {
             }
           );
         });
+    });
+}
+
+export function playTrack(trackUri) {
+  const token = getToken();
+  const headers = { Authorization: `Bearer ${token}` };
+
+  return fetch("https://api.spotify.com/v1/me", {
+    headers: headers,
+    "Content-Type": "application/json",
+  })
+    .then(() => {
+      return fetch(`https://api.spotify.com/v1/me/player/devices`, {
+        headers: headers,
+      });
+    })
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      const deviceId = jsonResponse.devices[0]?.id;
+      if (!deviceId) {
+        alert("You should open Spotify App first if you are trying to listen.");
+      }
+      return fetch(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        {
+          headers: headers,
+          method: "PUT",
+          body: JSON.stringify({ uris: [trackUri] }),
+        }
+      );
+    });
+}
+
+export function pauseTrack(trackUri) {
+  const token = getToken();
+  const headers = { Authorization: `Bearer ${token}` };
+
+  return fetch("https://api.spotify.com/v1/me", {
+    headers: headers,
+    "Content-Type": "application/json",
+  })
+    .then(() => {
+      return fetch(`https://api.spotify.com/v1/me/player/devices`, {
+        headers: headers,
+      });
+    })
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      const deviceId = jsonResponse.devices[0]?.id;
+      if (!deviceId) {
+        return;
+      }
+      return fetch(
+        `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
+        {
+          headers: headers,
+          method: "PUT",
+          body: JSON.stringify({ uris: [trackUri] }),
+        }
+      );
     });
 }

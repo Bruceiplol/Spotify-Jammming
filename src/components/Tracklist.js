@@ -8,6 +8,9 @@ export default function Tracklist(props) {
       key={track.id}
       onRemoval={props.onRemoval}
       handleSelectTracks={props.handleSelectTracks}
+      togglePlayControl={props.togglePlayControl}
+      onPlay={props.onPlay}
+      onPause={props.onPause}
     />
   ));
 
