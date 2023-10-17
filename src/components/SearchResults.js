@@ -2,12 +2,6 @@ import React, { useState, useEffect } from "react";
 import Tracklist from "./Tracklist";
 
 export default function SearchResults(props) {
-  const [showNextPageButton, setShowNextPageButton] = useState(false);
-
-  useEffect(() => {
-    setShowNextPageButton(true);
-  }, [props.searchResults]);
-
   function nextPage() {
     props.setPage((prev) => prev + 1);
   }
@@ -28,7 +22,7 @@ export default function SearchResults(props) {
         onPlay={props.onPlay}
         onPause={props.onPause}
       />
-      {props.searching && showNextPageButton && (
+      {props.searching && (
         <p className="next-page-button" onClick={searchNextPage}>
           Next page {">"}
         </p>

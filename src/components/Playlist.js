@@ -2,18 +2,18 @@ import React, { useCallback } from "react";
 import Tracklist from "./Tracklist";
 
 export default function Playlist(props) {
-  const handleNameChange = useCallback(
+  const onChange = useCallback(
     (event) => {
       props.handleNameChange(event.target.value);
     },
-    [props.handleNameChange]
+    []
   );
 
   return (
     <div className="playlist-container">
       <input
         className="playlist-name"
-        onChange={handleNameChange}
+        onChange={onChange}
         value={props.playlistName}
       />
       <Tracklist

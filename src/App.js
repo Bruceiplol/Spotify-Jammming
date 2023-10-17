@@ -64,7 +64,7 @@ function App() {
 
   const handleCreatePlaylist = useCallback(() => {
     const trackUri = playlistTracks.map((track) => track.uri);
-    createPlaylist(playlistName, trackUri).then(() => {
+    createPlaylist(playlistName, trackUri)?.then(() => {
       setPlaylistName("New Playlist");
       setPlaylistTracks([]);
     });
