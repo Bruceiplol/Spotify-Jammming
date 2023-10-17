@@ -20,8 +20,11 @@ function App() {
   const [currentListening, setCurrentListening] = useState("");
   const [prevSearchTerm, setPrevSearchTerm] = useState("");
   let prevPage;
-
-  getToken();
+  
+  useEffect(() => {
+    getToken();
+  }, []);
+  
   const search = useCallback((searchTerm, page) => {
     if (searchTerm !== prevSearchTerm) {
       setPage(1);

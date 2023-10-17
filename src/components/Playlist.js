@@ -6,7 +6,7 @@ export default function Playlist(props) {
     (event) => {
       props.handleNameChange(event.target.value);
     },
-    []
+    [props]
   );
 
   return (
