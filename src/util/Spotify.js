@@ -1,5 +1,5 @@
 const client_id = "deb4892109124216b877ceb58f234eb8"; // Replace with your client ID
-const redirect_uri = "https://spotify-jammming-customize-playlist.netlify.app";
+const redirect_uri = "http://localhost:3000/";
 const scope =
   "playlist-modify-public user-modify-playback-state user-read-playback-state";
 
