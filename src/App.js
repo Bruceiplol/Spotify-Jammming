@@ -118,7 +118,8 @@ function App() {
       setPlaylistTracks([]);
       getSongs(prevSearchTerm, page).then(setSearchResults);
       setPrevPage(1);
-    });
+      window.alert("Save successfully")
+    }) ;
   }, [playlistName, playlistTracks, page, prevSearchTerm]);
 
   return (
