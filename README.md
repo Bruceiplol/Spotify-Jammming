@@ -20,13 +20,17 @@ Welcome to My Music Playlist App! This web application allows you to search for 
 ## Getting Started
 
 To run the My Music Playlist App locally, follow these steps:
-
+### Method 1:
 1. Clone the repository: `git clone https://github.com/your-username/Spotify-Jammming.git`
 2. Navigate to the project directory: `cd Spotify-Jammming`
 3. Install the dependencies: `npm install`
 4. Start the development server: `npm start`
 5. Open your browser and visit `http://localhost:3000` to access the application
 6. Open your Spotify app in the background
+
+### Method 2:
+1. Go to the link: https://spotify-jammming-customize-playlist.netlify.app
+2. Open your Spotify app in the background
 
 ## Contributing
 
