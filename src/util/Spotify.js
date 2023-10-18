@@ -115,6 +115,7 @@ export function playTrack(trackUri) {
       const deviceId = jsonResponse.devices[0]?.id;
       if (!deviceId) {
         alert("You should open Spotify App first if you are trying to listen.");
+        return
       }
       return fetch(
         `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,

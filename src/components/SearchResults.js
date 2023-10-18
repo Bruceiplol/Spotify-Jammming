@@ -6,10 +6,49 @@ export default function SearchResults(props) {
     props.setPage((prev) => prev + 1);
   }
 
+  function backPage() {
+    props.setPage((prev) => prev - 1);
+  }
+
   function searchNextPage() {
     nextPage();
-    props.onSearch(props.prevSearchTerm, props.page);
+    props.onSearch(props.prevSearchTerm, props.page + 1);
   }
+
+  function searchBackPage() {
+    backPage();
+    props.onSearch(props.prevSearchTerm, props.page - 1);
+  }
+
+  const style = {
+    justifyContent: "flex-end",
+  };
+
+  const turnPageButtonsWFirstPage = (
+    <div className="turn-page-buttons" style={style}>
+      {props.page > 1 && (
+        <p className="back-page-button" onClick={searchBackPage}>
+          {"<"} Previous page
+        </p>
+      )}
+      <p className="next-page-button" onClick={searchNextPage}>
+        Next page {">"}
+      </p>
+    </div>
+  );
+
+  const turnPageButtons = (
+    <div className="turn-page-buttons">
+      {props.page > 1 && (
+        <p className="back-page-button" onClick={searchBackPage}>
+          {"<"} Previous page
+        </p>
+      )}
+      <p className="next-page-button" onClick={searchNextPage}>
+        Next page {">"}
+      </p>
+    </div>
+  );
 
   return (
     <div className="search-results-container">
@@ -23,9 +62,9 @@ export default function SearchResults(props) {
         onPause={props.onPause}
       />
       {props.searching && (
-        <p className="next-page-button" onClick={searchNextPage}>
-          Next page {">"}
-        </p>
+        <React.Fragment>
+          {props.page <= 1 ? turnPageButtonsWFirstPage : turnPageButtons}
+        </React.Fragment>
       )}
     </div>
   );

@@ -118,17 +118,26 @@ body {
   padding: 0;
 }
 
+.turn-page-buttons {
+  display:flex;
+  justify-content: space-between;
+}
+
+.back-page-button {
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
 .next-page-button {
-  text-align: right;
   margin-right: 1rem;
   cursor: pointer;
 }
 
-.next-page-button:hover {
+.back-page-button:hover, .next-page-button:hover {
   text-decoration: underline;
 }
 
-.next-page-button:active {
+.back-page-button:active, .next-page-button:active {
   color: aliceblue;
 }
 
